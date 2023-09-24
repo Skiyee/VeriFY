@@ -2,25 +2,15 @@ import Schema from './schema'
 
 const descriptor = {
   name: {
-    type: 'string',
+    type: 'array',
     required: true,
-    validator: (rule, value, callback) => {
-      if (value !== 'test')
-        callback(new Error('不晓得'))
-
-      else
-        callback()
-    },
-  },
-  list: {
-    type: 'number',
-    message: '21',
-    validator: () => {
-      return false
+    fields: {
+      0: { required: true, type: 'string' },
     },
   },
 }
 const validator = new Schema(descriptor)
-validator.validate({ name: '123123123', list: '21' }, (error, field) => {
-  console.log(error, field)
+
+validator.validate({ name: [1] }, (error) => {
+  console.log(error)
 })
