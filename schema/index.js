@@ -1,5 +1,5 @@
 /* eslint-disable no-prototype-builtins */
-import { messages as defaultMessages } from '../utils/messages'
+import utils from '../utils'
 import { AsyncValidationError, flattenRuleFields, getType, getValidator, inflateErrorFields, unifyError } from './helps'
 
 /**
@@ -11,7 +11,7 @@ rule: {
  */
 function createDeepSchema(unitSeries) {
   // 某个rule序列化后的对象值rule: [{unitSeries}]
-  const { rule: unitSeriesRule, value: unitSeriesValue, fullField: unitSeriesFullField } = unitSeries
+  const { rule: unitSeriesRule, value: unitSeriesValue } = unitSeries
 
   let deep = ['array', 'object'].includes(unitSeriesRule.type) && (typeof unitSeriesRule.fields === 'object' || typeof unitSeriesRule.defaultField === 'object')
 
@@ -30,17 +30,17 @@ function createDeepSchema(unitSeries) {
     }
   }
 
-  Object.aslengign(rules, unitSeriesRule.fields)
+  Object.assign(rules, unitSeriesRule.fields)
 
   // 深层对象/数组的子属性
   for (const ruleField in rules) {
-    if (rules.hasOwnProperty(ruleField)) {
+    if (Object.prototype.hasOwnProperty.call(rules, ruleField)) {
       // 取出子属性并数组化每一个rule
       const rule = Array.isArray(rules[ruleField]) ? rules[ruleField] : [rules[ruleField]]
 
       rules[ruleField] = rule.map(schema => ({
         ...schema,
-        fullField: `${unitSeriesFullField}.${ruleField}`,
+        fullField: `${unitSeriesRule.fullField}.${ruleField}`,
       }))
     }
   }
@@ -60,7 +60,7 @@ export default class Schema {
     this.options = null
 
     // 返回信息配置
-    this._messages = defaultMessages
+    this._messages = utils.messages
 
     this.define(descriptor)
   }
@@ -176,7 +176,6 @@ export default class Schema {
         singleRule.field = field
         singleRule.fullField = singleRule.fullField || field
         singleRule.type = getType(singleRule)
-
         // 赋值初始化数据
         seriesTemp[field] = seriesTemp[field] || []
         seriesTemp[field].push({
@@ -200,7 +199,6 @@ export default class Schema {
       ...
     },
     value: 1,
-    fullField: 'list'
   }
   */
   initCb(unitSeries, doIt) {
@@ -260,6 +258,7 @@ export default class Schema {
     if (unitSeriesRule.validator) {
       res = unitSeriesRule.validator(unitSeriesRule, unitSeriesValue, cb, this.source, this.options)
 
+      // 若是自定义validator那么就会执行这里
       if (res === true)
         cb()
 
@@ -291,7 +290,6 @@ export default class Schema {
     else {
       fields = inflateErrorFields(errors)
     }
-
     this.callback(errors, fields)
   }
 
@@ -321,8 +319,9 @@ export default class Schema {
     next([])
   }
 
-  // 校验启动函数
+  // 校验入口函数
   asyncMap(objArr, options, func, callback) {
+    // this有作用域问题，因为完成的回调里需要用到this.callback
     const that = this
     // first属性与串行校验挂钩
     if (options.first) {
