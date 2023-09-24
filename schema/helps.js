@@ -1,4 +1,6 @@
 /* eslint-disable no-prototype-builtins */
+
+// 定义的校验器
 import validators from '../validators'
 
 export class AsyncValidationError extends Error {
@@ -130,9 +132,9 @@ export function getType(singleRule) {
   if (
     typeof singleRule.validator !== 'function'
     && singleRule.type
-    && !validators.hasOwnProperty(singleRule.type)
+    && !Object.prototype.hasOwnProperty.call(validators, singleRule.type)
   )
-    throw new Error('未知校验器错误')
+    throw new Error(`No validator could be found for type: ${singleRule.type}`)
 
   return singleRule.type || 'string'
 }
