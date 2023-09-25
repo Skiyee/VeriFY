@@ -1,7 +1,4 @@
-/* eslint-disable no-prototype-builtins */
-
-// 定义的校验器
-import validators from '../validators'
+import validators from '@/validators'
 
 export class AsyncValidationError extends Error {
   constructor(errors, fields) {

@@ -1,4 +1,4 @@
-import utils from '../utils'
+import utils from '@/utils'
 
 export default function required(rule, value, source, errors, options, type) {
   if (

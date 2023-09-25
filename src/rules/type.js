@@ -1,5 +1,4 @@
-import utils from '../utils'
-import rules from '../rules'
+import utils from '@/utils'
 
 const pattern = {
   email: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -57,8 +56,6 @@ const types = {
 }
 
 export default function type(rule, value, source, errors, options) {
-  if (rule.required && value === undefined)
-    return rules.required(rules, value, source, errors, options)
   const custom = [
     'number',
     'integer',

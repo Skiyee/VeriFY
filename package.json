@@ -1,14 +1,36 @@
 {
+  "name": "@ks/validator",
+  "version": "0.0.1",
   "type": "module",
+  "packageManager": "pnpm@8.7.4",
+  "description": "多类型表单校验器",
+  "author": {
+    "name": "sKy",
+    "email": "319619193@qq.com",
+    "url": "https://github.com/skiyee"
+  },
+  "homepage": "https://github.com/skiyee/ks-validator#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Skiyee/ks-validator.git"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/ks-validator.es.js",
+      "require": "./dist/ks-validator.cjs.js"
+    }
+  },
+  "main": "./dist/ks-validator.cjs.js",
+  "module": "./dist/ks-validator.es.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
-  },
-  "dependencies": {
-    "async-validator": "^4.2.5"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^1.0.0-beta.6",
@@ -21,6 +43,6 @@
     "pre-commit": "pnpm lint-staged"
   },
   "lint-staged": {
-    "*": "eslint --fix"
+    "*.{js, md}": "eslint --fix"
   }
 }

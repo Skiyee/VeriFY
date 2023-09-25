@@ -1,4 +1,4 @@
-import utils from '../utils'
+import utils from '@/utils'
 
 export default function range(rule, value, source, errors, options) {
   const hasLen = typeof rule.len === 'number'

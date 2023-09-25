@@ -1,6 +1,5 @@
-/* eslint-disable no-prototype-builtins */
-import utils from '../utils'
 import { AsyncValidationError, flattenRuleFields, getType, getValidator, inflateErrorFields, unifyError } from './helps'
+import utils from '@/utils'
 
 /**
 rule: {

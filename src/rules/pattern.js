@@ -1,4 +1,4 @@
-import utils from '../utils'
+import utils from '@/utils'
 
 export default function pattern(rule, value, source, errors, options) {
   if (rule.pattern) {

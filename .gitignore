@@ -1,4 +1,13 @@
+# System files
+.DS_Store
+
+# IDE
 .vscode
-package-lock.json
+
+# Dependency directories
 node_modules/
-index.html
+vite.config.js
+
+# generate
+dist
+
