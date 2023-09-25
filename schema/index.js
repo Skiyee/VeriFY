@@ -6,28 +6,27 @@ import { AsyncValidationError, flattenRuleFields, getType, getValidator, inflate
 rule: {
   type: 'array',
   required: true,
-  defaultField: { type: 'url' },
+  allField: { type: 'url' },
 }
  */
 function createDeepSchema(unitSeries) {
   // 某个rule序列化后的对象值rule: [{unitSeries}]
   const { rule: unitSeriesRule, value: unitSeriesValue } = unitSeries
 
-  let deep = ['array', 'object'].includes(unitSeriesRule.type) && (typeof unitSeriesRule.fields === 'object' || typeof unitSeriesRule.defaultField === 'object')
+  let deep = ['array', 'object'].includes(unitSeriesRule.type) && (typeof unitSeriesRule.fields === 'object' || typeof unitSeriesRule.allField === 'object')
 
   deep = deep && (unitSeriesRule.required || unitSeriesValue)
 
   if (!deep)
     return null
 
-  // 针对某一个rule全局默认defaultField的处理
+  // 某一数组下值设置allField的处理
   const rules = {}
 
-  if (unitSeriesRule.defaultField) {
-    for (const valueField in unitSeriesValue) {
-      if (unitSeriesValue.hasOwnProperty(valueField))
-        rules[valueField] = unitSeriesRule.defaultField
-    }
+  if (unitSeriesRule.allField) {
+    const valueFieldArr = unitSeriesValue.keys()
+    for (const valueField of valueFieldArr)
+      rules[valueField] = unitSeriesRule.allField
   }
 
   Object.assign(rules, unitSeriesRule.fields)
@@ -208,6 +207,7 @@ export default class Schema {
 
       addError(error)
 
+      // 这里会把检测错误的默认模板置换成用户设置的错误模板
       if (errors.length && unitSeriesRule.message)
         addError(unitSeriesRule.message)
 
