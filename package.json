@@ -1,9 +1,10 @@
 {
   "name": "@ks/validator",
-  "version": "0.0.1",
   "type": "module",
+  "version": "0.0.1",
+  "private": true,
   "packageManager": "pnpm@8.7.4",
-  "description": "多类型表单校验器",
+  "description": "即时串行校验器",
   "author": {
     "name": "sKy",
     "email": "319619193@qq.com",
