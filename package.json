@@ -1,8 +1,8 @@
 {
-  "name": "@ks/validator",
+  "name": "@skiyee/validator",
   "type": "module",
   "version": "0.0.1",
-  "private": true,
+  "private": false,
   "packageManager": "pnpm@8.7.4",
   "description": "即时串行校验器",
   "author": {
