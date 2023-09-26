@@ -2,47 +2,52 @@
 
 目前还在更新中，会增加一些常见的类型校验器~
 
+> 
 > 重构源 async-validator
 >
 > 重构的主要目的是为了适用自己的项目
 >
 
-### 校验器
+## 安装
+
+`$ npm i @skiyee/validator` 
+
+## 校验器
 
 - [ ] 待添加
 - [ ] more...
 
-#### string
+### string
 
 用法待补充
 
-#### number
+### number
 
 用法待补充
 
-#### array
+### array
 
 用法待补充
 
-#### object
+### object
 
 用法待补充
 
 
-### 校验规则
+## 校验规则
 
-#### len
-
-用法待补充
-
-#### max
+### len
 
 用法待补充
 
-#### min
+### max
 
 用法待补充
 
-### 依赖
+### min
+
+用法待补充
+
+## 依赖
 - vite
 - @antfu/eslint-config
