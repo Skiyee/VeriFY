@@ -1,4 +1,4 @@
-import validators from '@/validators'
+import validators from '../validators'
 
 export class AsyncValidationError extends Error {
   constructor(errors, fields) {

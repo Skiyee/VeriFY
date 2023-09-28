@@ -1,4 +1,4 @@
-import utils from './index'
+import isExtendStringType from './isExtendStringType'
 
 export default function isEmpty(value, type) {
   if ([undefined, null].includes(value))
@@ -6,7 +6,7 @@ export default function isEmpty(value, type) {
   if (type === 'array' && Array.isArray(value) && !value.length)
     return true
 
-  if (utils.isExtendStringType(type) && typeof value === 'string' && !value)
+  if (isExtendStringType(type) && typeof value === 'string' && !value)
     return true
 
   return false
