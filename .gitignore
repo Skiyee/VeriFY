@@ -7,6 +7,8 @@
 # Dependency directories
 node_modules/
 vite.config.js
+rollup.config.js
+.babelrc
 
 # generate
 dist

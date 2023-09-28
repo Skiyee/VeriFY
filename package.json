@@ -1,44 +1,50 @@
 {
-  "name": "@skiyee/validator",
+  "name": "@skiyee/verify",
   "type": "module",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": false,
   "packageManager": "pnpm@8.7.4",
-  "description": "即时串行校验器",
+  "description": "Verify for you",
   "author": {
     "name": "sKy",
     "email": "319619193@qq.com",
     "url": "https://github.com/skiyee"
   },
-  "homepage": "https://github.com/skiyee/ks-validator#readme",
+  "homepage": "https://github.com/skiyee/verify#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Skiyee/ks-validator.git"
+    "url": "git+https://github.com/Skiyee/verify.git"
   },
   "exports": {
     ".": {
-      "import": "./dist/ks-validator.es.js",
-      "require": "./dist/ks-validator.cjs.js"
+      "import": "./dist/verify.es.js",
+      "require": "./dist/verify.cjs.js"
     }
   },
-  "main": "./dist/ks-validator.cjs.js",
-  "module": "./dist/ks-validator.es.js",
+  "main": "./dist/verify.cjs.js",
+  "module": "./dist/verify.es.js",
+  "browser": "./dist/verify.umd.js",
   "files": [
     "dist"
   ],
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
+    "build": "rollup --config",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^1.0.0-beta.6",
+    "@babel/core": "^7.23.0",
+    "@babel/preset-env": "^7.22.20",
+    "@rollup/plugin-alias": "^5.0.0",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-commonjs": "^25.0.4",
+    "@rollup/plugin-json": "^6.0.0",
+    "@rollup/plugin-terser": "^0.4.3",
     "eslint": "^8.50.0",
     "lint-staged": "^14.0.1",
-    "simple-git-hooks": "^2.9.0",
-    "vite": "^4.4.9"
+    "rollup": "^3.29.4",
+    "simple-git-hooks": "^2.9.0"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
