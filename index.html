@@ -1,1 +1,25 @@
-<script type="module" src="./example/index.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 测试es module模块 -->
+    <script type="module">
+      import main from "./dist/verify.es.js";
+      console.log(new main({}));
+    </script>
+    <!-- 测试cjs模块: 需要模拟node的环境pass -->
+    <script>
+
+    </script>
+    <!-- 测试umd模块 -->
+    <script src="./dist/verify.umd.js"></script>
+    <script>
+      console.log(new window.validator({}));
+    </script>
+  </body>
+</html>
