@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "private": false,
   "packageManager": "pnpm@8.7.4",
-  "description": "Verify for you",
+  "description": "VeriFY For You",
   "author": {
     "name": "sKy",
     "email": "319619193@qq.com",
@@ -30,24 +30,38 @@
   "scripts": {
     "build": "rollup --config",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "release": "release-it",
+    "postinstall": "simple-git-hooks"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-git"
+    }
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^1.0.0-beta.6",
+    "@antfu/eslint-config": "1.0.0-beta.18",
     "@babel/core": "^7.23.0",
     "@babel/preset-env": "^7.22.20",
+    "@commitlint/cli": "^17.7.2",
+    "@commitlint/config-conventional": "^17.7.0",
+    "@release-it/conventional-changelog": "^7.0.2",
     "@rollup/plugin-alias": "^5.0.0",
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-commonjs": "^25.0.4",
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-terser": "^0.4.3",
+    "commitizen": "^4.3.0",
+    "cz-git": "^1.7.1",
     "eslint": "^8.50.0",
     "lint-staged": "^14.0.1",
+    "release-it": "^16.2.1",
     "rollup": "^3.29.4",
     "simple-git-hooks": "^2.9.0"
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpm lint-staged"
+    "pre-commit": "pnpm lint-staged",
+    "commit-msg": "pnpm commitlint --edit $1"
   },
   "lint-staged": {
     "*.{js, md}": "eslint --fix"
