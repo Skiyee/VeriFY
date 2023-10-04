@@ -1,4 +1,18 @@
-import Schema from '../dist/ks-validator.es.js'
+import Schema from '../dist/verify.es.js'
+
+const booleanDesc = {
+  cool: { required: true, type: 'boolean', message: 'super cool' },
+}
+
+const booleanSource = {
+  cool: true,
+}
+
+const booleanValidator = new Schema(booleanDesc)
+
+booleanValidator.validate(booleanSource, (error) => {
+  console.log(error)
+})
 
 const objectDesc = {
   class: {
@@ -36,7 +50,7 @@ objectValidator.validate(objectSource, (error) => {
   console.log(error)
 })
 
-const arrayOfObjectsDesc = {
+const objectOfArrayDesc = {
   sku_list: {
     require: true,
     type: 'array',
@@ -50,7 +64,7 @@ const arrayOfObjectsDesc = {
   },
 }
 
-const arrayOfObjectsSource = {
+const objectOfArraySource = {
   sku_list: [
     {
       goods_id: '001',
@@ -61,8 +75,8 @@ const arrayOfObjectsSource = {
   ],
 }
 
-const arrayOfObjectsValidator = new Schema(arrayOfObjectsDesc)
+const objectOfArrayValidator = new Schema(objectOfArrayDesc)
 
-arrayOfObjectsValidator.validate(arrayOfObjectsSource, (error) => {
+objectOfArrayValidator.validate(objectOfArraySource, (error) => {
   console.log(error)
 })
