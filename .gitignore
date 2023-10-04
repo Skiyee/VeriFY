@@ -6,8 +6,9 @@
 
 # Dependency directories
 node_modules/
-vite.config.js
 rollup.config.js
+commitlint.config.js
+release-it.config.js
 .babelrc
 
 # generate
