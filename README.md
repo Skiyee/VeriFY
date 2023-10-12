@@ -22,6 +22,9 @@
 
 3. **示例**：待添加
 
+4. **配合VK框架**: 详细的使用说明可以在 [配合VK框架](#如何配合VK框架做全局检验)中找到
+
+
 ## 安装
 
 您可以通过 [npm](https://www.npmjs.com/package/@skiyee/verify) 安装 VeriFY：
@@ -165,3 +168,94 @@ validator.validate(source, (error)=>{
    */
 })
 ```
+
+## 如何配合VK框架做全局检验
+
+> 同时这也是VeriFY创造的动机
+
+### 创建校验文件
+
+1. 在云函数(对象)同级目录下创建rules文件夹
+
+2. 根据云函数/云对象创建文件名(二者有区别，请看以下示例)
+
+示例如下：
+
+云函数 路径：
+user/sys/add.js
+验证规则 路径：
+user/rules/index.js
+
+PS: 校验文件名只能是index，多个云函数对应一个校验文件
+
+云对象 路径：
+user/sys/user.js
+验证规则 路径：
+user/sys/user.js
+
+PS: 校验文件与云对象文件同名，一个云对象对应一个校验文件
+
+### 添加校验规则
+
+在已创建的校验文件里放以下代码
+
+```javascript
+const rules = {}
+
+// 当调用某个云函数(对象)名为 add 时就触发
+rules.add = { 
+  // 校验规则 
+}
+```
+
+### 全局拦截并校验
+
+> 这是一个全局的校验，其只会校验已添加规则的云函数(对象)
+
+路径：云端->router->util->pubFunction
+
+```javascript
+// !!! 不要忘记安装VeriFY了, npm i @skiyee/verify
+const Verify = require('@skiyee/verify')
+
+pubFun.validate = function (url, source) {
+  let res = { code: 0, msg: '通过验证' }
+
+  if (typeof url !== 'string'){
+    return { code: 50, msg: '索引参数错误' }
+  }
+
+  const splitType = url.includes('.') ? '.' : '/'
+
+  const mainPath = url.replace(/sys|kh|pub\b/g, 'rules').split(splitType)
+
+  const methodName = mainPath.pop()
+
+  const mainPathStr = `service/${mainPath.join('/')}`
+
+  let rule = null
+
+  try {
+    rule = vk.require(mainPathStr)?.[methodName]
+  }
+  catch (err) {
+    return res
+  }
+
+  if (!rule)
+    return res
+
+  const validtor = new Verify(rule)
+
+  validtor.validate(source, (err) => {
+    if (err !== null){
+      // 校验通过的result，只要code等于0即可
+      res = { code: 100, msg: err }
+    }
+  })
+
+  return res
+}
+```
+
+Hope you enjoy 💜
