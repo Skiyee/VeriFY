@@ -64,7 +64,7 @@ npm i @skiyee/verify
 
 这三者都有相同的验证规则语法
 
-```javascript
+```JavaScript
 const source = {
   name: 'xQc',
   age: 27
@@ -89,7 +89,7 @@ const rule_limit = {
 
 #### Boolean 
 
-```javascript
+```JavaScript
 const source = {
   cool: true
 }
@@ -101,7 +101,7 @@ const rule = {
 
 #### Array | Object
 
-```javascript
+```JavaScript
 const sourceObject = {
   spec_list: {
     name: 'first goods',
@@ -144,7 +144,7 @@ const ruleObjectOfArray = {
 
 ### 使用流程
 
-```javascript
+```JavaScript
 import VeriFY from '@skiyee/verify'
 // const VeriFY = required('@skiyee/verify')
 
@@ -179,27 +179,25 @@ validator.validate(source, (error)=>{
 
 2. 根据云函数/云对象创建文件名(二者有区别，请看以下示例)
 
-示例如下：
+#### 云函数
 
-云函数 路径：
-user/sys/add.js
-验证规则 路径：
-user/rules/index.js
+云函数路径：user/sys/add.js
+验证规则路径：user/rules/index.js
 
-PS: 校验文件名只能是index，多个云函数对应一个校验文件
+> 校验文件名只能是index，多个云函数对应一个校验文件
 
-云对象 路径：
-user/sys/user.js
-验证规则 路径：
-user/sys/user.js
+#### 云对象
 
-PS: 校验文件与云对象文件同名，一个云对象对应一个校验文件
+云对象路径：user/sys/user.js
+验证规则路径：user/sys/user.js
+
+> 校验文件与云对象文件同名，一个云对象对应一个校验文件
 
 ### 添加校验规则
 
 在已创建的校验文件里放以下代码
 
-```javascript
+```JavaScript
 const rules = {}
 
 // 当调用某个云函数(对象)名为 add 时就触发
@@ -208,13 +206,13 @@ rules.add = {
 }
 ```
 
-### 全局拦截并校验
+### 校验函数工具
 
 > 这是一个全局的校验，其只会校验已添加规则的云函数(对象)
 
-路径：云端->router->util->pubFunction
+```JavaScript
+// 路径：云端->router->util->pubFunction
 
-```javascript
 // !!! 不要忘记安装VeriFY了, npm i @skiyee/verify
 const Verify = require('@skiyee/verify')
 
@@ -256,6 +254,32 @@ pubFun.validate = function (url, source) {
 
   return res
 }
+```
+
+### 拦截并调用工具
+
+创建前置拦截器
+
+```JavaScript
+// 路径：router/middleware/modules
+
+module.exports = [
+	{
+		id: "globalValidate",
+		regExp: "^admin", // 正则匹配规则，这个是以^admin开头的云函数会被拦截
+		description: "全局校验器",
+		index: 310,
+		mode:"onActionExecuting", 
+		main: async function(event) {
+			// 这里是拦截规则，可以查数据库，最终code:0 代表通过，其他均为未通过，msg是被拦截的原因
+			let { data = {}, url,  util } = event;
+			let { vk } = util;
+
+      return vk.pubFun.validate(url, data)
+		}
+	}
+]
+
 ```
 
 Hope you enjoy 💜
