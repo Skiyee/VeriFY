@@ -189,7 +189,7 @@ validator.validate(source, (error)=>{
 #### 云对象
 
 云对象路径：user/sys/user.js
-验证规则路径：user/sys/user.js
+验证规则路径：user/rules/user.js
 
 > 校验文件与云对象文件同名，一个云对象对应一个校验文件
 
@@ -211,7 +211,7 @@ rules.add = {
 > 这是一个全局的校验，其只会校验已添加规则的云函数(对象)
 
 ```JavaScript
-// 路径：云端->router->util->pubFunction
+// 路径：云端->router->util->pubFunction.js
 
 // !!! 不要忘记安装VeriFY了, npm i @skiyee/verify
 const Verify = require('@skiyee/verify')
@@ -261,7 +261,7 @@ pubFun.validate = function (url, source) {
 创建前置拦截器
 
 ```JavaScript
-// 路径：router/middleware/modules
+// 路径：云端->router->middleware->modules->xxx.js
 
 module.exports = [
 	{
