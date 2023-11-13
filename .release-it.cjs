@@ -1,6 +1,5 @@
 /**
  * 安装: npm install -D release-it @release-it/conventional-changelog
- * 设置: npx release-it --config release-it.config.js
  * 使用: npx release-it
  */
 module.exports = {
@@ -37,6 +36,6 @@ module.exports = {
     release: true,
   },
   npm: {
-    publish: false,
+    publish: true,
   },
 }
