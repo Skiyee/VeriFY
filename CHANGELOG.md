@@ -1,5 +1,12 @@
 
 
+## [1.1.12](https://github.com/Skiyee/verify/compare/1.1.0...1.1.12) (2023-11-13)
+
+
+### 🐞 Bug Fixes
+
+* **core:** 修复云函数下无法上传且无法识别commonjs ([0019a3c](https://github.com/Skiyee/verify/commit/0019a3cc0e52e50f937ffc315263143b44316229))
+
 ## 1.1.0 (2023-10-04)
 
 
