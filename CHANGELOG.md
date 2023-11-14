@@ -1,5 +1,13 @@
 
 
+## [1.2.0](https://github.com/Skiyee/verify/compare/1.1.12...1.2.0) (2023-11-14)
+
+
+### ✨ Features
+
+* **core:** 新增string和number拓展接口, 拓展pattern、mobile、money、ratio校验 ([977d150](https://github.com/Skiyee/verify/commit/977d1500e13c13f23a59b570fcbf656e68092102))
+* **validators:** 新增enum枚举校验器 ([38576be](https://github.com/Skiyee/verify/commit/38576bea8cad939ace2a02269eee8eb2a98e9247))
+
 ## [1.1.12](https://github.com/Skiyee/verify/compare/1.1.0...1.1.12) (2023-11-13)
 
 
