@@ -3,8 +3,8 @@ import utils from '../utils'
 
 export default function boolean(rule, value, callback, source, options) {
   const errors = []
-  const validate = rule.required || Object.prototype.hasOwnProperty.call(source, rule.field)
 
+  const validate = rule.required || Object.prototype.hasOwnProperty.call(source, rule.field)
   if (validate) {
     if (utils.isEmpty(value) && !rule.required)
       return callback([])
