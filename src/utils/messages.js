@@ -19,10 +19,9 @@ function newMessages() {
       boolean: '%s 不是一个 %s',
       integer: '%s 不是一个 %s',
       float: '%s 不是一个 %s',
-      regexp: '%s 不是一个有效的 %s',
       email: '%s 不是一个有效的 %s',
-      url: '%s 不是一个有效的 %s',
-      hex: '%s 不是一个有效的 %s',
+      mobile: '%s 不是一个有效的 %s',
+      pattern: '%s 不是一个有效的 %s',
     },
     string: {
       len: '%s 必须正好有 %s 个字符',

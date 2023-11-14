@@ -1,11 +1,11 @@
 import isEmpty from './isEmpty'
-import isExtendStringType from './isExtendStringType'
+import isExtendType from './isExtendType'
 import messages from './messages'
 import format from './format'
 
 export default {
   isEmpty,
-  isExtendStringType,
+  isExtendType,
   messages,
   format,
 }

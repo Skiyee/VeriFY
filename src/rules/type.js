@@ -1,9 +1,8 @@
 import utils from '../utils'
 
-const pattern = {
+const patternRule = {
   email: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-  url: /^(?!mailto:)(?:(?:http|https|ftp):\/\/|\/\/)(?:\S+(?::\S*)?@)?(?:(?:(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[0-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00A1-\uFFFF0-9]+-*)*[a-z\u00A1-\uFFFF0-9]+)(?:\.(?:[a-z\u00A1-\uFFFF0-9]+-*)*[a-z\u00A1-\uFFFF0-9]+)*(?:\.(?:[a-z\u00A1-\uFFFF]{2,})))|localhost)(?::\d{2,5})?(?:(\/|\?|#)[^\s]*)?$/i,
-  hex: /^#?([a-f0-9]{6}|[a-f0-9]{3})$/i,
+  mobile: /^1(3\d|4[5-9]|5[0-35-9]|6[2567]|7[0-8]|8\d|9[0-35-9])\d{8}$/g,
 }
 
 const types = {
@@ -27,14 +26,8 @@ const types = {
   },
   email(value) {
     return typeof value === 'string'
-    && !!value.match(pattern.email)
+    && !!value.match(patternRule.email)
     && value.length < 255
-  },
-  url(value) {
-    return typeof value === 'string' && !!value.match(pattern.url)
-  },
-  hex(value) {
-    return typeof value === 'string' && !!value.match(pattern.hex)
   },
   date(value) {
     return typeof value.getTime === 'function'
@@ -42,16 +35,14 @@ const types = {
     && typeof value.getYear === 'function'
     && !Number.isNaN(value.getTime())
   },
-  regexp(value) {
-    if (value instanceof RegExp)
-      return true
-
-    try {
-      return !!(new RegExp(value))
-    }
-    catch (e) {
-      return false
-    }
+  mobile(value) {
+    return typeof value === 'string' && !!value.match(patternRule.mobile)
+  },
+  pattern(value) {
+    return typeof value === 'string'
+  },
+  money(value) {
+    return types.number(value) && types.integer(value)
   },
 }
 
@@ -64,13 +55,13 @@ export default function type(rule, value, source, errors, options) {
     'object',
     'method',
     'email',
-    'url',
-    'hex',
     'date',
-    'regexp',
+    'mobile',
+    'pattern',
+    'money',
   ]
 
-  const ruleType = rule.type
+  const ruleType = rule.extend || rule.type
 
   if (custom.includes(ruleType)) {
     if (!types[ruleType](value)) {

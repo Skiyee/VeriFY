@@ -6,12 +6,12 @@ export default function string(rule, value, callback, source, options) {
 
   const validate = rule.required || Object.prototype.hasOwnProperty.call(source, rule.field)
   if (validate) {
-    if (utils.isEmpty(value) && !rule.required)
+    if (utils.isEmpty(value, rule.extend) && !rule.required)
       return callback([])
 
     rules.required(rule, value, source, errors, options)
 
-    if (!utils.isEmpty(value)) {
+    if (!utils.isEmpty(value, rule.extend)) {
       rules.type(rule, value, source, errors, options)
       rules.range(rule, value, source, errors, options)
       rules.pattern(rule, value, source, errors, options)

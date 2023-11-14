@@ -1,3 +1,4 @@
+import utils from '../utils'
 import validators from '../validators'
 
 export class AsyncValidationError extends Error {
@@ -123,15 +124,19 @@ export function unifyError(unitSeriesRule) {
 
 // 获取类型
 export function getType(singleRule) {
-  if (!singleRule.type && singleRule.pattern instanceof RegExp)
-    singleRule.type = 'pattern'
-
   if (
     typeof singleRule.validator !== 'function'
     && singleRule.type
     && !Object.prototype.hasOwnProperty.call(validators, singleRule.type)
   )
     throw new Error(`No validator could be found for type: ${singleRule.type}`)
+
+  if (
+    singleRule.extend
+    && !utils.isExtendType(singleRule.extend, 'string')
+    && !utils.isExtendType(singleRule.extend, 'number')
+  )
+    throw new Error(`No extend validator could be found for extend: ${singleRule.extend}`)
 
   return singleRule.type || 'string'
 }
