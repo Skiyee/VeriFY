@@ -27,6 +27,7 @@
     "dist"
   ],
   "scripts": {
+    "start": "rollup -c -w",
     "build": "rollup --config",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
