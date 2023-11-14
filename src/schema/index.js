@@ -14,7 +14,7 @@ function createDeepSchema(unitSeries) {
 
   let deep = ['array', 'object'].includes(unitSeriesRule.type) && (typeof unitSeriesRule.fields === 'object' || typeof unitSeriesRule.allField === 'object')
 
-  deep = deep && (unitSeriesRule.required || unitSeriesValue)
+  deep = deep && (unitSeriesRule.required || !utils.isEmpty(unitSeriesValue))
 
   if (!deep)
     return null
