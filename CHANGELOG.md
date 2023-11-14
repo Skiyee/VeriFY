@@ -1,5 +1,12 @@
 
 
+## [1.2.2](https://github.com/Skiyee/verify/compare/1.2.1...1.2.2) (2023-11-14)
+
+
+### 🐞 Bug Fixes
+
+* **core:** 修复Array和Object类型非required，但依旧校验的问题 ([c7da1ba](https://github.com/Skiyee/verify/commit/c7da1ba8778538e04b2adc08859c4cbd93ca74f0))
+
 ## [1.2.1](https://github.com/Skiyee/verify/compare/1.2.0...1.2.1) (2023-11-14)
 
 ## [1.2.0](https://github.com/Skiyee/verify/compare/1.1.12...1.2.0) (2023-11-14)
