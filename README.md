@@ -273,9 +273,9 @@ pubFun.validate = function (url, sourceData) {
   if (!rule)
     return res
 
-  const Verify = new Verify(rule)
+  const validator = new Verify(rule)
 
-  Verify.validate(source, (err) => {
+  validator.validate(source, (err) => {
     if (err !== null){
       res = { code: 100, msg: err }
     }
@@ -293,21 +293,20 @@ pubFun.validate = function (url, sourceData) {
 // 路径：云端->router->middleware->modules->verifyFilter.js
 
 module.exports = [
-	{
-		id: "globalValidate",
-		regExp: "^admin",
-		description: "全局校验器",
-		index: 310,
-		mode:"onActionExecuting", 
-		main: async function(event) {
-			let { data = {}, url,  util } = event;
-			let { vk } = util;
+  {
+    id: "globalValidate",
+    regExp: "^admin",
+    description: "全局校验器",
+    index: 310,
+    mode:"onActionExecuting", 
+    main: async function(event) {
+      let { data = {}, url,  util } = event;
+      let { vk } = util;
 
       return vk.pubFun.validate(url, data)
-		}
-	}
+    }
+  }
 ]
-
 ```
 
 Hope you enjoy 💜
