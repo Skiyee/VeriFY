@@ -236,6 +236,8 @@ const rules = {}
 rules.add = { 
   // 校验规则 
 }
+
+module.exports = rules
 ```
 
 ### 编写校验工具
